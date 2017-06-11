@@ -2,8 +2,8 @@
 - hosts: all
   sudo: true
   vars:
-    servername: odoo.app
-    timezone: Europe/London
+    servername: odoo01
+    timezone: Asia/Shanghai
   vars_files:
     - vars/common.yml
   roles:
