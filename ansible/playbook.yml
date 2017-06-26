@@ -1,11 +1,27 @@
 ---
-- hosts: all
-  sudo: true
+- name: apply common configuration to all nodes
+  hosts: all
+  sudo: True
+  roles:
+    - common
+    #- app
   vars:
-    servername: odoo01
-    timezone: Asia/Shanghai
+    servername: botman 
+    timezone:   Asia/Shanghai
+
   vars_files:
     - vars/common.yml
+
+- name: configure and deploy the webservers and application code
+  hosts: webservers
+  sudo: True
+
   roles:
-    - init
-    - app
+    - web
+
+- name: deploy MySQL and configure the databases
+  hosts: dbservers
+  #remote_user: ubuntu
+  sudo: True
+  roles:
+    - db

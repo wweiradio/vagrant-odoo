@@ -1,5 +1,19 @@
 ---
 # application tasks to be customized and to run after the main provision
-- name: Install Odoo
-  sudo: yes
-  shell: curl https://raw.githubusercontent.com/aschenkels-ictstudio/odoo-install-scripts/master/ubuntu-14-04/odoo_install.sh > /root/odoo_install.sh && sh /root/odoo_install.sh
+
+- name: ship the odoo_install script
+  copy:
+     src: "files/odoo_install_10.sh"
+     dest: "~/"
+     mode: 0777
+- name: run odoo_install
+  shell: ~/odoo_insall_10.sh
+
+
+#- name: install docker
+#  sudo: yes
+#  apt: name=docker.io state=present
+
+#- name: start docker
+#  sudo: yes
+#  shell: docker run -p 8069:8069 --name odoo --link db:db -t odoo

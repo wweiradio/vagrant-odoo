@@ -1,0 +1,17 @@
+---
+# Handler to handle common notifications. Handlers are called by other plays.
+# See http://docs.ansible.com/playbooks_intro.html for more information about handlers.
+
+- name: update apt
+  sudo: yes
+  apt: update_cache=yes
+
+- name: restart ntp
+  service: name=ntp state=restarted enabled=yes
+
+- name: restart iptables
+  service: name=iptables state=restarted
+
+- name: increase_swap
+  sudo: yes
+  shell: ~/increase_swap.sh
