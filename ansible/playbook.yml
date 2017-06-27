@@ -1,6 +1,6 @@
 ---
 - name: apply common configuration to all nodes
-  hosts: all
+  hosts: botman
   sudo: True
   roles:
     - common
@@ -11,6 +11,12 @@
 
   vars_files:
     - vars/common.yml
+
+- name: install jenkins jenkins-debian-glue
+  hosts: botman
+  sudo: True
+  roles:
+    - jenkins
 
 - name: configure and deploy the webservers and application code
   hosts: webservers
@@ -25,3 +31,11 @@
   sudo: True
   roles:
     - db
+
+- name: deploy jenkins slave build machine
+  hosts: jenkins_slave_p1
+
+  sudo: True
+
+  roles:
+    - jenkins_slave

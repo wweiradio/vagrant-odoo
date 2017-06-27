@@ -1,0 +1,34 @@
+---
+
+# Jenkins user name
+jenkins_slave_user_name: jenkins
+
+# Jenkins user group
+jenkins_slave_user_group: "{{ jenkins_slave_user_name }}"
+
+# Jenkins user ID
+jenkins_slave_user_uid: 498
+
+# Jenkins user group ID
+jenkins_slave_user_gid: 498
+
+# Additional Jekins user groups
+jenkins_slave_user_groups: ''
+
+# Jenkins used home directory
+jenkins_slave_user_home: /home/jenkins
+
+# Jenkins user pasword
+# (use `grub-crypt --sha-512` to generate one)
+jenkins_slave_user_password: '1'
+
+# Jenkins user authorized SSH key
+jenkins_slave_user_authorized_key: /home/jenkins/.ssh/id_rsa.pub
+
+# List of packages which should be installed - mainly Java (exact version can be specified here)
+# (set this to empty list if using another role for the Java installation)
+jenkins_slave_pkgs:
+#  - java-openjdk
+#  - default-jdk
+#  - openjdk-8-jdk
+  - openjdk-7-jdk

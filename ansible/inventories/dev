@@ -1,2 +1,5 @@
-[botman]
-192.168.13.37
+#[botman]
+#192.168.13.38
+
+[jenkins_slave_p1]
+192.168.0.8 ansible_ssh_user=pi ansible_ssh_pass=raspberry ansible_ssh_port=22

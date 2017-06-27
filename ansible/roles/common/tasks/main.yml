@@ -9,6 +9,10 @@
 - name: create deply user
   user: name=deploy group=ubuntu
 
+- name: update apt-get
+  sudo: yes
+  shell: apt-get update ; true
+
 - name: Install ntp
   apt: name=ntp state=present
   tags: ntp

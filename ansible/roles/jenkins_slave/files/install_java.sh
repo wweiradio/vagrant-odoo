@@ -30,6 +30,11 @@ java_url="http://download.java.net/java/jdk8u152/archive/b05/binaries/jdk-8u152-
 tar_file="jdk-8u152-ea-bin-b05-linux-arm32-vfp-hflt-20_jun_2017.tar.gz"
 target_dir="jdk1.8"
 
+RC=$(which java)
+if ! [ "${RC}AB" == "AB" ]; then
+    exit 0
+fi
+
 if ! [ -f ${target_dir} ]; then
     wget $java_url
 fi
@@ -50,3 +55,5 @@ for item in $bins; do
 done
 
 rm -rf $tar_file
+echo 0
+

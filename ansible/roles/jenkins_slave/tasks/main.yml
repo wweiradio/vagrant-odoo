@@ -1,0 +1,65 @@
+---
+
+- name: /root/.ssh
+  file:
+   path: /root/.ssh
+   state: directory
+   mode: 0700
+   owner: root
+
+- name: copy ssh key
+  copy: src=~/.ssh/id_rsa.pub dest=/root/.ssh owner=root group=root mode=0644
+
+- name: Check if the user's pasword or the authorized key is specified
+  fail:
+    msg: User's password or authorized key must be specified.
+  when: >
+    jenkins_slave_user_password | length == 0
+#    jenkins_slave_user_authorized_key | length == 0
+
+- name: Create Jenkins user group
+  group:
+    name: "{{ jenkins_slave_user_group }}"
+    gid: "{{ jenkins_slave_user_gid }}"
+  tags:
+    - jenkins_slave_user
+
+- name: Create Jenkins user
+  user:
+    name: "{{ jenkins_slave_user_name }}"
+    uid: "{{ jenkins_slave_user_uid }}"
+    group: "{{ jenkins_slave_user_group }}"
+    groups: "{{ jenkins_slave_user_groups }}"
+    password: "{{ jenkins_slave_user_password }}"
+    home: "{{ jenkins_slave_user_home }}"
+  tags:
+    - jenkins_slave_user
+
+- name: Create the authorized_keys record
+  authorized_key:
+    user: "{{ jenkins_slave_user_name }}"
+    key: "{{ lookup('file', '/home/cason/.ssh/id_rsa.pub') }}"
+  when: jenkins_slave_user_authorized_key | length > 0
+  tags:
+    - jenkins_slave_user
+
+- name: ship java install script
+  copy:
+    mode: 0774
+    owner: pi
+    src: "files/install_java.sh"
+    dest: "/home/pi/install_java.sh"
+
+- name: install java jdk
+  shell: "/home/pi/install_java.sh"
+
+
+- name: Update repositories cache and install packages python
+  apt:
+    name: python-software-properties
+    update_cache: yes
+
+- name: Update repositories cache and install packages git
+  apt:
+    name: git
+    update_cache: yes

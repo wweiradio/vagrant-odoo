@@ -20,3 +20,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+
+your_password=$1
+wget https://raw.github.com/mika/jenkins-debian-glue/master/puppet/apply.sh
+sudo bash ./apply.sh $your_password
